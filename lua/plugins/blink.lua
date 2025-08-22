@@ -6,6 +6,7 @@ return {
 		"saghen/blink.cmp",
 		dependencies = {
 			"rafamadriz/friendly-snippets",
+			"obsidian-nvim/obsidian.nvim",
 		},
 		version = "*",
 		config = function()
