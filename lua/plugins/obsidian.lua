@@ -5,6 +5,11 @@ return {
 	---@module 'obsidian'
 	---@type obsidian.config
 	opts = {
+		templates = {
+			folder = "templates",
+			date_format = "%Y-%m-%d",
+			time_format = "%H:%M",
+		},
 		workspaces = {
 			{
 				name = "notes",
