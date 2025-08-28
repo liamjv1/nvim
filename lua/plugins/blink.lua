@@ -1,4 +1,4 @@
--- TODO: Make so when like typing comments we dont show the completion menu
+-- TODO: maybe Make so when like typing comments we dont show the completion menu
 
 return {
 	{ "L3MON4D3/LuaSnip", keys = {} },
@@ -59,13 +59,18 @@ return {
 				keymap = {
 					["<C-n>"] = {
 						function(cmp)
-							cmp.show({ providers = { "snippets" } })
+							if cmp.is_visible() then
+								cmp.select_next()
+							else
+								cmp.show({ providers = { "lsp", "snippets", "path" } })
+							end
 						end,
 					},
 				},
 			})
 
 			require("luasnip.loaders.from_vscode").lazy_load()
+			require("luasnip.loaders.from_lua").load({ paths = "~/.config/nvim/snippets" })
 		end,
 	},
 }

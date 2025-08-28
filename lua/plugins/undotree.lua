@@ -8,6 +8,6 @@ return {
 		vim.g.undotree_SplitWidth = 24
 	end,
 	keys = {
-		{ "<leader>ut", "<CMD>UndotreeToggle<CR>", desc = "Toggle undo tree" },
+		{ "<leader>u", "<CMD>UndotreeToggle<CR>", desc = "Toggle undo tree" },
 	},
 }
