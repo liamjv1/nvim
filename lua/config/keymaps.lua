@@ -61,3 +61,8 @@ map('n', '<C-w><Up>',    function() smart_tmux_nav('Up') end, opts)
 map('n', '<C-w><Down>',  function() smart_tmux_nav('Down') end, opts)
 map('n', '<C-w><Left>',  function() smart_tmux_nav('Left') end, opts)
 map('n', '<C-w><Right>', function() smart_tmux_nav('Right') end, opts)
+
+map('n', '<C-w>k',    function() smart_tmux_nav('Up') end, opts)
+map('n', '<C-w>j',  function() smart_tmux_nav('Down') end, opts)
+map('n', '<C-w>h',  function() smart_tmux_nav('Left') end, opts)
+map('n', '<C-w>l', function() smart_tmux_nav('Right') end, opts)
