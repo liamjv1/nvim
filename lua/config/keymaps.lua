@@ -55,7 +55,7 @@ local function smart_tmux_nav(dir)
   end
 end
 
-local opts = { silent = true, desc = 'Smart tmux/Vim pane navigation' }
+local opts = { silent = true }
 
 map('n', '<C-w><Up>',    function() smart_tmux_nav('Up') end, opts)
 map('n', '<C-w><Down>',  function() smart_tmux_nav('Down') end, opts)
@@ -66,3 +66,13 @@ map('n', '<C-w>k',    function() smart_tmux_nav('Up') end, opts)
 map('n', '<C-w>j',  function() smart_tmux_nav('Down') end, opts)
 map('n', '<C-w>h',  function() smart_tmux_nav('Left') end, opts)
 map('n', '<C-w>l', function() smart_tmux_nav('Right') end, opts)
+
+local function smart_tab()
+  if require("copilot.suggestion").is_visible() then
+    require("copilot.suggestion").accept()
+  else
+    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Tab>", true, false, true), "i", false)
+  end
+end
+
+map("i", "<Tab>", smart_tab, opts)

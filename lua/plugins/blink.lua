@@ -1,5 +1,3 @@
--- TODO: maybe Make so when like typing comments we dont show the completion menu
-
 return {
 	{ "L3MON4D3/LuaSnip", keys = {} },
 	{
