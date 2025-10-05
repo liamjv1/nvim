@@ -1,25 +1,23 @@
+-- Description: Configuration for GitHub Copilot with Blink completion.
 return {
 	"zbirenbaum/copilot.lua",
 	cmd = "Copilot",
 	event = "InsertEnter",
-    build = ":Copilot auth",
+	build = ":Copilot auth",
 	config = function()
 		require("copilot").setup({
 			suggestion = {
-				-- set to true to enable auto-triggering of completions
+                enabled = false,
 				auto_trigger = true,
-				-- set to false if you want copilot to keep suggesting while cmp is open
-				hide_during_completion = false,
-				-- keymaps for interacting with completions
 				keymap = {
-					accept = "<C-l>", -- A different key to accept, to avoid conflicts
+					accept = false, -- We use blink
 					next = "<M-]>",
 					prev = "<M-[>",
 					dismiss = "<C-e>",
 				},
 			},
 			panel = {
-				enabled = true,
+				enabled = false,
 				auto_refresh = true,
 				keymap = {
 					jump_prev = "[[",
@@ -34,5 +32,20 @@ return {
 		vim.keymap.set("i", "<C-l>", function()
 			require("copilot.suggestion").accept()
 		end, { desc = "Accept copilot suggestion" })
+
+		-- Blink setup
+		vim.api.nvim_create_autocmd("User", {
+			pattern = "BlinkCmpMenuOpen",
+			callback = function()
+				vim.b.copilot_suggestion_hidden = true
+			end,
+		})
+
+		vim.api.nvim_create_autocmd("User", {
+			pattern = "BlinkCmpMenuClose",
+			callback = function()
+				vim.b.copilot_suggestion_hidden = false
+			end,
+		})
 	end,
 }

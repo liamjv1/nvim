@@ -5,6 +5,7 @@ return {
 		dependencies = {
 			"rafamadriz/friendly-snippets",
 			"obsidian-nvim/obsidian.nvim",
+			"giuxtaposition/blink-cmp-copilot",
 		},
 		version = "*",
 		config = function()
@@ -16,10 +17,16 @@ return {
 					nerd_font_variant = "normal",
 				},
 				sources = {
-					default = { "lsp", "path", "snippets", "buffer" },
+					default = { "lsp", "path", "snippets", "buffer", "copilot" },
 					providers = {
 						cmdline = {
 							min_keyword_length = 2,
+						},
+						copilot = {
+							name = "copilot",
+							module = "blink-cmp-copilot",
+							score_offset = 100,
+							async = true,
 						},
 					},
 				},
