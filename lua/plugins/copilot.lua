@@ -7,10 +7,9 @@ return {
 	config = function()
 		require("copilot").setup({
 			suggestion = {
-                enabled = false,
 				auto_trigger = true,
 				keymap = {
-					accept = false, -- We use blink
+					accept = "<C-l>", -- We use blink
 					next = "<M-]>",
 					prev = "<M-[>",
 					dismiss = "<C-e>",

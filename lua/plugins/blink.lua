@@ -4,8 +4,7 @@ return {
 		"saghen/blink.cmp",
 		dependencies = {
 			"rafamadriz/friendly-snippets",
-			"obsidian-nvim/obsidian.nvim",
-			"giuxtaposition/blink-cmp-copilot",
+			"obsidian-nvim/obsidian.nvim"
 		},
 		version = "*",
 		config = function()
@@ -17,16 +16,10 @@ return {
 					nerd_font_variant = "normal",
 				},
 				sources = {
-					default = { "lsp", "path", "snippets", "buffer", "copilot" },
+					default = { "lsp", "path", "snippets", "buffer" },
 					providers = {
 						cmdline = {
 							min_keyword_length = 2,
-						},
-						copilot = {
-							name = "copilot",
-							module = "blink-cmp-copilot",
-							score_offset = 100,
-							async = true,
 						},
 					},
 				},
@@ -72,6 +65,26 @@ return {
 						end,
 					},
 				},
+			})
+
+			local ls = require("luasnip")
+
+			ls.setup({
+				region_check_events = "InsertEnter",
+				delete_check_events = "InsertLeave",
+			})
+
+			vim.api.nvim_create_autocmd("ModeChanged", {
+				pattern = "*",
+				callback = function()
+					if
+						((vim.v.event.old_mode == "s" and vim.v.event.new_mode == "n") or vim.v.event.old_mode == "i")
+						and ls.session.current_nodes[vim.api.nvim_get_current_buf()]
+						and not ls.session.jump_active
+					then
+						ls.unlink_current()
+					end
+				end,
 			})
 
 			require("luasnip.loaders.from_vscode").lazy_load()
