@@ -1,7 +1,10 @@
 return {
 	"ibhagwan/fzf-lua",
-	dependencies = { "nvim-tree/nvim-web-devicons" },
-	opts = {},
+	opts = {
+        files = {
+            file_icons = false
+        }
+    },
 	keys = {
 		{
 			"<leader>ff",
