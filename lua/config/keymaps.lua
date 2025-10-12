@@ -31,7 +31,8 @@ map("n", "]d", function()
 	vim.diagnostic.jump({ count = 1, float = true })
 end, { desc = "Go to next diagnostic" })
 
-map("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostics list" })
+map("n", "<leader>ql", vim.diagnostic.setloclist, { desc = "Open diagnostics list" })
+map("n", "<leader>qx", "<cmd>cclose<cr>", { desc = "Close quickfix list" });
 
 map("n", "<C-up>", ":cprev<CR>", { desc = "Previous quickfix item" })
 map("n", "<C-down>", ":cnext<CR>", { desc = "Next quickfix item" })

@@ -1,6 +1,7 @@
 -- Description: Configuration for GitHub Copilot with Blink completion.
 return {
 	"zbirenbaum/copilot.lua",
+    enabled = false,
 	cmd = "Copilot",
 	event = "InsertEnter",
 	build = ":Copilot auth",

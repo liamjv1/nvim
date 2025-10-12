@@ -1,10 +1,10 @@
 return {
 	"ibhagwan/fzf-lua",
 	opts = {
-        files = {
-            file_icons = false
-        }
-    },
+		files = {
+			file_icons = false,
+		},
+	},
 	keys = {
 		{
 			"<leader>ff",
@@ -59,7 +59,7 @@ return {
 			"<leader>fd",
 			function()
 				local fzf = require("fzf-lua")
-				
+
 				local dir_cmd
 				if vim.fn.executable("fd") == 1 then
 					dir_cmd = "fd --type d --hidden --exclude .git"
