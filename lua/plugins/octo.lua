@@ -7,5 +7,9 @@ return {
 	},
 	opts = {
 		picker = "fzf-lua",
+		enable_builtin = true,
+	},
+	keys = {
+		{ "<leader>O", "<cmd>Octo<cr>", desc = "Octo" },
 	},
 }

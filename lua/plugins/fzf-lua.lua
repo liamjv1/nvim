@@ -4,6 +4,11 @@ return {
 		files = {
 			file_icons = false,
 		},
+		keymap = {
+			fzf = {
+				["ctrl-q"] = "select-all+accept",
+			},
+		},
 	},
 	keys = {
 		{
