@@ -1,7 +1,9 @@
 return {
 	"folke/sidekick.nvim",
+	enabled = false, -- disabled until further improvements
 	opts = {
 		-- Default settings work fine, customize later if needed
+		-- testing
 	},
 	keys = {
 		{
