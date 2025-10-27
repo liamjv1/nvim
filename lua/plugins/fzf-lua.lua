@@ -3,6 +3,7 @@ return {
 	opts = {
 		files = {
 			file_icons = false,
+			cmd = "(rg --files --hidden --glob '!.git' 2>/dev/null; fd --type f --hidden --follow --exclude .git --no-ignore --glob '.env*' 2>/dev/null) | sort -u",
 		},
 		keymap = {
 			fzf = {
