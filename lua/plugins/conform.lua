@@ -27,8 +27,10 @@ return {
 		end,
 		formatters_by_ft = {
 			lua = { "stylua" },
-			typescript = { "biome-check" },
-			typescriptreact = { "biome-check" },
+			typescript = { "biome-check", "rustywind" },
+			typescriptreact = { "biome-check", "rustywind" },
+			javascript = { "biome-check", "prettierd" },
+			javascriptreact = { "biome-check", "prettierd" },
 			css = { "biome-check" },
 			html = { "prettierd" },
 			json = { "biome-check" },

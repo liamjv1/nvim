@@ -24,13 +24,13 @@ return {
 	config = function()
 		require("tokyonight").setup({
 			style = "night",
-			transparent = true,
-			styles = {
-                sidebars = "transparent", -- transparent sidebars
-                floats = "transparent", -- transparent floats
-			},
+			-- transparent = true,
+			-- styles = {
+			-- 	sidebars = "transparent", -- transparent sidebars
+			-- 	floats = "transparent", -- transparent floats
+			-- },
 			on_colors = function(colors)
-				colors.bg = "#161A1D"
+				colors.bg = "#0e1012"
 				colors.bg_dark = "#0f1316"
 				colors.bg_sidebar = colors.bg_dark
 				colors.bg_float = colors.bg
@@ -41,6 +41,12 @@ return {
 				hl.LineNr = { fg = c.fg_gutter }
 				hl.CursorLine = { bg = "NONE" }
 				hl.CursorLineNr = { fg = c.warning, bold = true }
+
+				-- Gitsigns colors
+				hl.GitSignsAdd = { fg = c.green }
+				hl.GitSignsChange = { fg = c.yellow }
+				hl.GitSignsDelete = { fg = c.red }
+				hl.GitSignsUntracked = { fg = c.purple }
 			end,
 		})
 		vim.cmd("colorscheme tokyonight")

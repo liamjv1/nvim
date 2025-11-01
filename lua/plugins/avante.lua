@@ -10,13 +10,9 @@ return {
 	opts = {
 		instructions_file = "AGENTS.md",
 		acp_providers = {
-			["claude-code"] = {
-				command = "npx",
-				args = { "@zed-industries/claude-code-acp" },
-				env = {
-					NODE_NO_WARNINGS = "1",
-					ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY"),
-				},
+			["opencode"] = {
+				command = "opencode",
+				args = { "acp" },
 			},
 		},
 	},
