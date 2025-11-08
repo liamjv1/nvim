@@ -32,14 +32,7 @@ map("n", "]d", function()
 end, { desc = "Go to next diagnostic" })
 
 map("n", "<leader>ql", vim.diagnostic.setloclist, { desc = "Open diagnostics list" })
-map("n", "<leader>qx", "<cmd>cclose<cr>", { desc = "Close quickfix list" });
-
-map("n", "<C-up>", ":cprev<CR>", { desc = "Previous quickfix item" })
-map("n", "<C-down>", ":cnext<CR>", { desc = "Next quickfix item" })
-map("n", "<C-w><Left>", "<C-w>h", { desc = "Move to left window" })
-map("n", "<C-w><Down>", "<C-w>j", { desc = "Move to bottom window" })
-map("n", "<C-w><Up>", "<C-w>k", { desc = "Move to top window" })
-map("n", "<C-w><Right>", "<C-w>l", { desc = "Move to right window" })
+map("n", "<leader>qx", "<cmd>cclose<cr>", { desc = "Close quickfix list" })
 
 local function smart_tmux_nav(dir)
 	local v = { Up = "k", Down = "j", Left = "h", Right = "l" }
@@ -82,5 +75,3 @@ end, opts)
 map("n", "<C-w>l", function()
 	smart_tmux_nav("Right")
 end, opts)
-
-

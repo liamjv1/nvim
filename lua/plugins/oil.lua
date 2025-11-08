@@ -2,6 +2,7 @@ return {
 	"stevearc/oil.nvim",
 	---@module 'oil'
 	---@type oil.SetupOpts
+	enabled = true, -- temorarily disable oil cause wanna test out yazi
 	opts = {
 		skip_confirm_for_simple_edits = true,
 		delete_to_trash = true,
