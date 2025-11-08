@@ -6,7 +6,7 @@ return {
 	keys = {
 		{
 			"<leader>ft",
-			"<CMD>TodoFzfLua<CR>",
+			"<CMD>TodoTelescope<CR>",
 			desc = "Find todo comments",
 		},
 	},

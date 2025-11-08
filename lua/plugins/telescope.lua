@@ -11,31 +11,6 @@ return {
 			end,
 		},
 	},
-	config = function()
-		local telescope = require("telescope")
-
-		telescope.setup({
-			defaults = {
-				mappings = {
-					i = {
-						["<C-q>"] = require("telescope.actions").send_selected_to_qflist
-							+ require("telescope.actions").open_qflist,
-					},
-					n = {
-						["<C-q>"] = require("telescope.actions").send_selected_to_qflist
-							+ require("telescope.actions").open_qflist,
-					},
-				},
-			},
-			pickers = {
-				find_files = {
-					hidden = true,
-					find_command = { "rg", "--files", "--hidden", "--glob", "!**/.git/*" },
-				},
-			},
-		})
-		pcall(telescope.load_extension, "fzf")
-	end,
 	keys = {
 		{
 			"<leader>ff",
@@ -64,13 +39,6 @@ return {
 				require("telescope.builtin").buffers()
 			end,
 			desc = "Find buffers",
-		},
-		{
-			"<leader>fr",
-			function()
-				require("telescope.builtin").oldfiles()
-			end,
-			desc = "Find recent files",
 		},
 		{
 			"<leader>fk",
