@@ -11,6 +11,24 @@ return {
 			end,
 		},
 	},
+	opts = {
+		pickers = {
+			find_files = {
+				hidden = true,
+			},
+		},
+		defaults = {
+			file_ignore_patterns = {
+				"node_modules",
+				".git/",
+				"%.jpg",
+				"%.png",
+				"dist/",
+				"build/",
+				"openspec/",
+			},
+		},
+	},
 	keys = {
 		{
 			"<leader>ff",
