@@ -24,8 +24,8 @@ return {
 				map("grd", vim.lsp.buf.definition, "[G]oto [D]efinition")
 				map("gd", vim.lsp.buf.definition, "[G]oto [D]efinition")
 				map("grD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
-				map("gO", require("fzf-lua").lsp_document_symbols, "Open Document Symbols")
-				map("gW", require("fzf-lua").lsp_live_workspace_symbols, "Open Workspace Symbols")
+				map("gO", require("telescope.builtin").lsp_document_symbols, "Open Document Symbols")
+				map("gW", require("telescope.builtin").lsp_dynamic_workspace_symbols, "Open Workspace Symbols")
 				map("grt", vim.lsp.buf.type_definition, "[G]oto [T]ype Definition")
 
 				---@param client vim.lsp.Client

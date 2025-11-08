@@ -1,5 +1,6 @@
 return {
 	"ibhagwan/fzf-lua",
+	enabled = false,
 	opts = {
 		files = {
 			file_icons = false,
