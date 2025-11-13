@@ -35,6 +35,10 @@ local function create_template_autocmd(pattern, template_fn)
 			end
 
 			vim.api.nvim_buf_set_lines(0, 0, -1, false, vim.split(template, "\n"))
+
+			vim.defer_fn(function()
+				require("conform").format({ bufnr = 0, async = false })
+			end, 100)
 		end,
 	})
 end
@@ -45,9 +49,9 @@ create_template_autocmd("*/page.tsx", function()
 	return string.format(
 		[[export default function %s() {
   return (
-    <div>
-      <h1>%s</h1>
-    </div>
+      <div>
+          <h1>%s</h1>
+      </div>
   );
 }]],
 		name,
@@ -64,9 +68,9 @@ create_template_autocmd("*/layout.tsx", function()
   children: React.ReactNode;
 }) {
   return (
-    <div>
-      {children}
-    </div>
+      <div>
+          {children}
+      </div>
   );
 }]],
 		name
@@ -78,9 +82,9 @@ create_template_autocmd("*/loading.tsx", function()
 	return string.format(
 		[[export default function %s() {
   return (
-    <div>
-      <p>Loading...</p>
-    </div>
+      <div>
+          <p>Loading...</p>
+      </div>
   );
 }]],
 		name
@@ -89,12 +93,12 @@ end)
 
 create_template_autocmd("*/not-found.tsx", function()
 	return [[export default function NotFound() {
-  return (
-    <div>
-      <h2>Not Found</h2>
-      <p>Could not find requested resource</p>
-    </div>
-  );
+    return (
+        <div>
+          <h2>Not Found</h2>
+          <p>Could not find requested resource</p>
+        </div>
+    );
 }]]
 end)
 
@@ -102,12 +106,12 @@ create_template_autocmd("*/route.ts", function()
 	return [[import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(request: NextRequest) {
-  return NextResponse.json({ message: 'Hello' });
+    return NextResponse.json({ message: 'Hello' });
 }
 
 export async function POST(request: NextRequest) {
-  const body = await request.json();
-  return NextResponse.json({ message: 'Created' }, { status: 201 });
+    const body = await request.json();
+    return NextResponse.json({ message: 'Created' }, { status: 201 });
 }]]
 end)
 
@@ -138,11 +142,11 @@ create_template_autocmd("*.tsx", function()
 }
 
 export default function %s({}: %sProps) {
-  return (
-    <div>
-      <p>%s</p>
-    </div>
-  );
+    return (
+        <div>
+            <p>%s</p>
+        </div>
+    );
 }]],
 		name,
 		name,

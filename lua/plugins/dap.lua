@@ -23,123 +23,130 @@ return {
 		},
 		keys = {
 			{
-				"<leader>dB",
+				"<F5>",
 				function()
-					require("dap").set_breakpoint(vim.fn.input("Breakpoint condition: "))
+					require("dap").continue()
 				end,
-				desc = "Breakpoint Condition",
+				desc = "Debug: Start/Continue",
+			},
+			{
+				"<F6>",
+				function()
+					require("dap").pause()
+				end,
+				desc = "Debug: Pause",
+			},
+			{
+				"<F8>",
+				function()
+					require("dap").run_to_cursor()
+				end,
+				desc = "Debug: Run to Cursor",
+			},
+			{
+				"<F9>",
+				function()
+					require("dap").toggle_breakpoint()
+				end,
+				desc = "Debug: Toggle Breakpoint",
+			},
+			{
+				"<F10>",
+				function()
+					require("dap").step_over()
+				end,
+				desc = "Debug: Step Over",
+			},
+			{
+				"<F11>",
+				function()
+					require("dap").step_into()
+				end,
+				desc = "Debug: Step Into",
+			},
+			{
+				"<F12>",
+				function()
+					require("dap").step_out()
+				end,
+				desc = "Debug: Step Out",
 			},
 			{
 				"<leader>db",
 				function()
 					require("dap").toggle_breakpoint()
 				end,
-				desc = "Toggle Breakpoint",
+				desc = "Debug: Toggle Breakpoint",
+			},
+			{
+				"<leader>dB",
+				function()
+					require("dap").set_breakpoint(vim.fn.input("Breakpoint condition: "))
+				end,
+				desc = "Debug: Conditional Breakpoint",
 			},
 			{
 				"<leader>dc",
 				function()
 					require("dap").continue()
 				end,
-				desc = "Run/Continue",
-			},
-			{
-				"<leader>da",
-				function()
-					require("dap").continue({ before = get_args })
-				end,
-				desc = "Run with Args",
+				desc = "Debug: Start/Continue",
 			},
 			{
 				"<leader>dC",
 				function()
 					require("dap").run_to_cursor()
 				end,
-				desc = "Run to Cursor",
+				desc = "Debug: Run to Cursor",
 			},
 			{
-				"<leader>dg",
+				"<leader>da",
 				function()
-					require("dap").goto_()
+					require("dap").continue({ before = get_args })
 				end,
-				desc = "Go to Line (No Execute)",
-			},
-			{
-				"<leader>di",
-				function()
-					require("dap").step_into()
-				end,
-				desc = "Step Into",
-			},
-			{
-				"<leader>dj",
-				function()
-					require("dap").down()
-				end,
-				desc = "Down",
-			},
-			{
-				"<leader>dk",
-				function()
-					require("dap").up()
-				end,
-				desc = "Up",
+				desc = "Debug: Run with Args",
 			},
 			{
 				"<leader>dl",
 				function()
 					require("dap").run_last()
 				end,
-				desc = "Run Last",
-			},
-			{
-				"<leader>do",
-				function()
-					require("dap").step_out()
-				end,
-				desc = "Step Out",
-			},
-			{
-				"<leader>dO",
-				function()
-					require("dap").step_over()
-				end,
-				desc = "Step Over",
-			},
-			{
-				"<leader>dP",
-				function()
-					require("dap").pause()
-				end,
-				desc = "Pause",
-			},
-			{
-				"<leader>dr",
-				function()
-					require("dap").repl.toggle()
-				end,
-				desc = "Toggle REPL",
-			},
-			{
-				"<leader>ds",
-				function()
-					require("dap").session()
-				end,
-				desc = "Session",
+				desc = "Debug: Run Last",
 			},
 			{
 				"<leader>dt",
 				function()
 					require("dap").terminate()
 				end,
-				desc = "Terminate",
+				desc = "Debug: Terminate",
 			},
 			{
-				"<leader>dw",
+				"<leader>dr",
+				function()
+					require("dap").repl.toggle()
+				end,
+				desc = "Debug: Toggle REPL",
+			},
+			{
+				"<leader>dh",
 				function()
 					require("dap.ui.widgets").hover()
 				end,
-				desc = "Widgets",
+				desc = "Debug: Hover Variables",
+			},
+			{
+				"<leader>ds",
+				function()
+					require("dap.ui.widgets").sidebar(require("dap.ui.widgets").scopes).open()
+				end,
+				desc = "Debug: Scopes",
+			},
+			{
+				"<leader>df",
+				function()
+					require("dap.ui.widgets").sidebar(require("dap.ui.widgets").frames).open()
+				end,
+				desc = "Debug: Frames",
 			},
 		},
 		config = function()
@@ -164,74 +171,40 @@ return {
 				})
 			end
 
-			-- VSCode launch.json with comments
-			local vscode = require("dap.ext.vscode")
-			local json = require("plenary.json")
-			vscode.json_decode = function(str)
-				return vim.json.decode(json.json_strip_comments(str))
-			end
+		dap.configurations.cpp = {
+			{
+				name = "Launch file",
+				type = "codelldb",
+				request = "launch",
+				program = function()
+					return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+				end,
+				cwd = "${workspaceFolder}",
+				stopOnEntry = false,
+			},
+		}
 
-			------------------------------------------------------------------
-			-- JavaScript / TypeScript: Node (Next.js server) + Chrome client
-			-- Requires Mason package: js-debug-adapter
-			------------------------------------------------------------------
-			dap.adapters["pwa-node"] = {
-				type = "server",
-				host = "localhost",
-				port = 8123,
-				executable = {
-					command = os.getenv("HOME") .. "/.local/share/nvim/mason/bin/js-debug-adapter",
-				},
-			}
+		dap.configurations.c = dap.configurations.cpp
+		dap.configurations.rust = dap.configurations.cpp
 
-			dap.adapters["pwa-chrome"] = {
-				type = "executable",
-				command = "node",
-				args = {
-					os.getenv("HOME")
-						.. "/.local/share/nvim/mason/packages/chrome-debug-adapter/out/src/chromeDebug.js",
-				},
-			}
-			-- Alias so `"type": "node"` in launch.json works
-			dap.adapters["node"] = dap.adapters["pwa-node"]
-
-			local js_based_languages = { "typescript", "javascript", "typescriptreact", "javascriptreact" }
-			for _, language in ipairs(js_based_languages) do
-				dap.configurations[language] = {
-					{
-						name = "Next.js: debug server",
-						type = "pwa-node",
-						request = "launch",
-						program = "${workspaceFolder}/node_modules/next/dist/bin/next",
-						runtimeArgs = { "--inspect" },
-						skipFiles = { "<node_internals>/**" },
-						serverReadyAction = {
-							action = "debugWithChrome",
-							killOnServerStop = true,
-							pattern = "- Local:.+(https?://.+)",
-							uriFormat = "%s",
-							webRoot = "${workspaceFolder}",
-						},
-						cwd = "${workspaceFolder}",
-					},
-					{
-						name = "Next.js: debug client-side",
-						type = "chrome",
-						request = "launch",
-						url = "http://localhost:3000",
-						webRoot = "${workspaceFolder}",
-						sourceMaps = true,
-						sourceMapPathOverrides = {
-							["webpack://_N_E/*"] = "${webRoot}/*",
-						},
-					},
-				}
-			end
-
-			------------------------------------------------------------------
-			-- C/C++/Rust/Go: install codelldb and delve via Mason
-			-- Configurations can be added per-language as needed
-			------------------------------------------------------------------
+		dap.configurations.java = {
+			{
+				type = "java-debug-adapter",
+				request = "attach",
+				name = "Debug (Attach) - Remote",
+				hostName = "127.0.0.1",
+				port = 5005,
+			},
+			{
+				type = "java-debug-adapter",
+				request = "launch",
+				name = "Debug (Launch) - Current File",
+				mainClass = "${file}",
+				projectName = "",
+				cwd = "${workspaceFolder}",
+				classPaths = {},
+			},
+		}
 		end,
 	},
 
@@ -277,9 +250,39 @@ return {
 		cmd = { "DapInstall", "DapUninstall" },
 		opts = {
 			automatic_installation = true,
-			ensure_installed = { "delve", "codelldb" },
-			handlers = {},
+			ensure_installed = { "delve", "codelldb", "java-debug-adapter", "java-test" },
+			handlers = {
+				function(config)
+					require("mason-nvim-dap").default_setup(config)
+				end,
+				codelldb = function(config)
+					config.adapters = {
+						type = "server",
+						port = "${port}",
+						executable = {
+							command = vim.fn.stdpath("data") .. "/mason/bin/codelldb",
+							args = { "--port", "${port}" },
+						},
+					}
+					require("mason-nvim-dap").default_setup(config)
+				end,
+				["java-debug-adapter"] = function(config)
+					config.adapters = {
+						type = "server",
+						host = "127.0.0.1",
+						port = "${port}",
+						executable = {
+							command = "java",
+							args = {
+								"-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=127.0.0.1:${port}",
+								"-jar",
+								vim.fn.stdpath("data") .. "/mason/packages/java-debug-adapter/extension/server/com.microsoft.java.debug.plugin-*.jar",
+							},
+						},
+					}
+					require("mason-nvim-dap").default_setup(config)
+				end,
+			},
 		},
-		config = function() end,
 	},
 }

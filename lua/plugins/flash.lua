@@ -5,13 +5,11 @@ return {
 	opts = {
 		modes = {
 			char = {
-				jump_labels = true,
-			},
-			search = {
-				enabled = true,
+				jump_labels = false,
 			},
 		},
 	},
+	enabled = false,
 	keys = {
 		{
 			"zk",
