@@ -33,3 +33,7 @@ end, { desc = "Go to next diagnostic" })
 
 map("n", "<leader>ql", vim.diagnostic.setloclist, { desc = "Open diagnostics list" })
 map("n", "<leader>qx", "<cmd>cclose<cr>", { desc = "Close quickfix list" })
+
+-- never use Tab to jump forward in jump list anyways, always use <C-i>
+map("n", "<Tab>", "gt")
+map("n", "<S-Tab>", "gT")
