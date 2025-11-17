@@ -2,6 +2,7 @@ return {
 	"zbirenbaum/copilot.lua",
 	cmd = "Copilot",
 	event = "InsertEnter",
+	enabled = false,
 	dependencies = {
 		"copilotlsp-nvim/copilot-lsp",
 	},
@@ -19,6 +20,9 @@ return {
 					prev = "<M-[>", -- Previous suggestion (Alt+[)
 					dismiss = "<C-]>", -- Dismiss suggestion
 				},
+			},
+			nes = {
+				enabled = false,
 			},
 		})
 	end,
