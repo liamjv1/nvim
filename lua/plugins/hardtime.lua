@@ -1,7 +1,7 @@
 return {
-	dir = "/Users/liamvinberg/personal/plugins/hardtime.nvim", -- your local path
+	dir = vim.env.HOME .. "/personal/plugins/hardtime.nvim", -- your local path
 	name = "hardtime.nvim",
-	enabled = false,
+	enabled = true,
 	lazy = false,
 	dependencies = { "MunifTanjim/nui.nvim" },
 	opts = {},
