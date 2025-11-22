@@ -10,6 +10,10 @@ return {
 		picker = "telescope",
 		default_to_projects_v2 = true,
 		default_merge_method = "squash",
+		ssh_aliases = {
+			["github.com-work"] = "github.com",
+			["github.com-personal"] = "github.com",
+		},
 	},
 	keys = {
 		{ "<leader>O", "<cmd>Octo<cr>", desc = "Octo" },
