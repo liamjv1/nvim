@@ -40,3 +40,8 @@ map("n", "<S-Tab>", "gT")
 
 map("v", "<M-up>", ":m '<-2<CR>gv=gv")
 map("v", "<M-down>", ":m '>+1<CR>gv=gv")
+
+map("n", "<leader>h", function()
+	vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+	vim.notify(vim.lsp.inlay_hint.is_enabled() and "Inlay Hints Enabled" or "Inlay Hints Disabled")
+end)
