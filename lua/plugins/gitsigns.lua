@@ -17,10 +17,7 @@ return {
 			topdelete = { text = "" },
 			changedelete = { text = "▎" },
 		},
-		on_attach = function(buffer)
-			local gs = package.loaded.gitsigns
-
-
+	},
 	config = function()
 		require("gitsigns").setup({
 			current_line_blame_opts = {
