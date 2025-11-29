@@ -45,3 +45,16 @@ map("n", "<leader>h", function()
 	vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
 	vim.notify(vim.lsp.inlay_hint.is_enabled() and "Inlay Hints Enabled" or "Inlay Hints Disabled")
 end)
+-- lua/config/keymaps.lua
+map("n", "<leader>tt", function()
+	local line = vim.api.nvim_get_current_line()
+	if line:match("%[x%]") then
+		line = line:gsub("%[x%]", "[ ]", 1)
+	elseif line:match("%[ %]") then
+		line = line:gsub("%[ %]", "[x]", 1)
+	else
+		-- No checkbox, add one
+		line = line:gsub("^(%s*)", "%1- [ ] ", 1)
+	end
+	vim.api.nvim_set_current_line(line)
+end, { desc = "Toggle checkbox" })

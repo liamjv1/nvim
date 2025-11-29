@@ -18,7 +18,7 @@ opt.wrap = true
 opt.splitright = true
 opt.splitbelow = true
 opt.expandtab = true
--- opt.conceallevel = 2
+opt.conceallevel = 1
 
 -- opt.winborder = "rounded"
 

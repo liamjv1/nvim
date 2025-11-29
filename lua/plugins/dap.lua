@@ -171,40 +171,21 @@ return {
 				})
 			end
 
-		dap.configurations.cpp = {
-			{
-				name = "Launch file",
-				type = "codelldb",
-				request = "launch",
-				program = function()
-					return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
-				end,
-				cwd = "${workspaceFolder}",
-				stopOnEntry = false,
-			},
-		}
+			dap.configurations.cpp = {
+				{
+					name = "Launch file",
+					type = "codelldb",
+					request = "launch",
+					program = function()
+						return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+					end,
+					cwd = "${workspaceFolder}",
+					stopOnEntry = false,
+				},
+			}
 
-		dap.configurations.c = dap.configurations.cpp
-		dap.configurations.rust = dap.configurations.cpp
-
-		dap.configurations.java = {
-			{
-				type = "java-debug-adapter",
-				request = "attach",
-				name = "Debug (Attach) - Remote",
-				hostName = "127.0.0.1",
-				port = 5005,
-			},
-			{
-				type = "java-debug-adapter",
-				request = "launch",
-				name = "Debug (Launch) - Current File",
-				mainClass = "${file}",
-				projectName = "",
-				cwd = "${workspaceFolder}",
-				classPaths = {},
-			},
-		}
+			dap.configurations.c = dap.configurations.cpp
+			dap.configurations.rust = dap.configurations.cpp
 		end,
 	},
 
@@ -250,7 +231,7 @@ return {
 		cmd = { "DapInstall", "DapUninstall" },
 		opts = {
 			automatic_installation = true,
-			ensure_installed = { "delve", "codelldb", "java-debug-adapter", "java-test" },
+			ensure_installed = { "delve", "codelldb" },
 			handlers = {
 				function(config)
 					require("mason-nvim-dap").default_setup(config)
@@ -262,22 +243,6 @@ return {
 						executable = {
 							command = vim.fn.stdpath("data") .. "/mason/bin/codelldb",
 							args = { "--port", "${port}" },
-						},
-					}
-					require("mason-nvim-dap").default_setup(config)
-				end,
-				["java-debug-adapter"] = function(config)
-					config.adapters = {
-						type = "server",
-						host = "127.0.0.1",
-						port = "${port}",
-						executable = {
-							command = "java",
-							args = {
-								"-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=127.0.0.1:${port}",
-								"-jar",
-								vim.fn.stdpath("data") .. "/mason/packages/java-debug-adapter/extension/server/com.microsoft.java.debug.plugin-*.jar",
-							},
 						},
 					}
 					require("mason-nvim-dap").default_setup(config)
