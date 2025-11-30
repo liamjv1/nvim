@@ -58,3 +58,17 @@ map("n", "<leader>tt", function()
 	end
 	vim.api.nvim_set_current_line(line)
 end, { desc = "Toggle checkbox" })
+
+map("n", "<leader>z", "<cmd>source %<cr>", { desc = "run current file (useful for plugin creation)" })
+
+map("n", "<leader>rr", function()
+	require("runner").run()
+end, { desc = "Run default command" })
+
+map("n", "<leader>rs", function()
+	require("runner").run_select()
+end, { desc = "Run select command" })
+
+map("n", "<leader>re", function()
+	require("runner").edit()
+end, { desc = "Edit runner commands" })

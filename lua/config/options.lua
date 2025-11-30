@@ -20,7 +20,4 @@ opt.splitbelow = true
 opt.expandtab = true
 opt.conceallevel = 1
 
--- opt.winborder = "rounded"
-
 vim.opt.scrolloff = 12
-vim.lsp.enable("copilot")
