@@ -18,6 +18,5 @@ opt.wrap = true
 opt.splitright = true
 opt.splitbelow = true
 opt.expandtab = true
-opt.conceallevel = 1
 
 vim.opt.scrolloff = 12

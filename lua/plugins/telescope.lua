@@ -1,5 +1,6 @@
 return {
 	"nvim-telescope/telescope.nvim",
+	enabled = true,
 	tag = "v0.1.9",
 	dependencies = {
 		"nvim-lua/plenary.nvim",
@@ -35,13 +36,13 @@ return {
 		},
 	},
 	keys = {
-		{
-			"<leader>ff",
-			function()
-				require("telescope.builtin").find_files()
-			end,
-			desc = "Find files",
-		},
+		-- {
+		-- 	"<leader>ff",
+		-- 	function()
+		-- 		require("telescope.builtin").find_files()
+		-- 	end,
+		-- 	desc = "Find files",
+		-- },
 		{
 			"<leader>fw",
 			function()
