@@ -35,8 +35,11 @@ end, { desc = "Go to next diagnostic" })
 -- map("n", "<leader>qx", "<cmd>cclose<cr>", { desc = "Close quickfix list" })
 
 -- never use Tab to jump forward in jump list anyways, always use <C-i>
-map("n", "<Tab>", "gt")
-map("n", "<S-Tab>", "gT")
+-- map("n", "<Tab>", "gt")
+-- map("n", "<S-Tab>", "gT")
+
+map("n", "]t", "gt")
+map("n", "[t", "gT")
 
 map("v", "<M-up>", ":m '<-2<CR>gv=gv")
 map("v", "<M-down>", ":m '>+1<CR>gv=gv")
