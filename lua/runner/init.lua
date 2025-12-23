@@ -203,39 +203,91 @@ function M.run_select()
 		return
 	end
 
-	-- If only one command, just run it
 	if #commands == 1 then
 		M.run()
 		return
 	end
 
-	-- Build list of display strings for the picker
-	-- vim.ui.select is a built-in UI hook that your config can override
-	-- (telescope, fzf-lua, etc. often provide nicer implementations)
+	local has_telescope, _ = pcall(require, "telescope")
+	if has_telescope then
+		M.telescope_select(commands, root)
+	else
+		M.fallback_select(commands, root)
+	end
+end
+
+--- Telescope picker for command selection
+--- @param commands table List of {line, command} pairs
+--- @param root string The project root
+function M.telescope_select(commands, root)
+	local pickers = require("telescope.pickers")
+	local finders = require("telescope.finders")
+	local conf = require("telescope.config").values
+	local actions = require("telescope.actions")
+	local action_state = require("telescope.actions.state")
+	local themes = require("telescope.themes")
+
+	local opts = themes.get_dropdown({
+		layout_config = {
+			width = 0.4,
+			height = math.min(#commands + 4, 15),
+		},
+		previewer = false,
+	})
+
+	pickers
+		.new(opts, {
+			prompt_title = "Run Command",
+			finder = finders.new_table({
+				results = commands,
+				entry_maker = function(entry)
+					local display = entry.command
+					if entry.line == commands[1].line then
+						display = "[default] " .. display
+					end
+					return {
+						value = entry,
+						display = display,
+						ordinal = entry.command,
+					}
+				end,
+			}),
+			sorter = conf.generic_sorter({}),
+			attach_mappings = function(prompt_bufnr)
+				actions.select_default:replace(function()
+					local selection = action_state.get_selected_entry()
+					actions.close(prompt_bufnr)
+					if selection then
+						execute_in_terminal(selection.value.command, root)
+					end
+				end)
+				return true
+			end,
+		})
+		:find()
+end
+
+--- Fallback picker using vim.ui.select
+--- @param commands table List of {line, command} pairs
+--- @param root string The project root
+function M.fallback_select(commands, root)
 	local items = {}
 	for i, cmd in ipairs(commands) do
-		-- Show index and command, mark first as default
 		local prefix = i == 1 and "[default] " or ""
 		table.insert(items, prefix .. cmd.command)
 	end
 
 	vim.ui.select(items, {
 		prompt = "Select command to run:",
-
-		-- format_item lets you customize how each item is displayed
-		-- (we already formatted above, so just return as-is)
 		format_item = function(item)
 			return item
 		end,
 	}, function(_, idx)
-		-- choice = the selected string, idx = the index (1-based)
-		-- If user cancels (Esc), both are nil
 		if not idx then
 			return
 		end
 
 		local command = commands[idx].command
-		vim.notify("Running: " .. command, vim.log.levels.INFO)
 		execute_in_terminal(command, root)
 	end)
 end
