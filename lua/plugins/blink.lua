@@ -20,6 +20,11 @@ return {
 						cmdline = {
 							min_keyword_length = 2,
 						},
+						-- spell = {
+						-- 	name = "Spell",
+						-- 	module = "blink.cmp.sources.spell",
+						-- 	score_offset = -3,
+						-- },
 					},
 				},
 				cmdline = {

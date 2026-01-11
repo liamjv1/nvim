@@ -1,0 +1,4 @@
+function get_all_files()
+	local config_path = vim.fn.stdpath("config")
+	return vim.fn.glob(config_path .. "/**/*.lua", false, true)
+end

@@ -13,6 +13,11 @@ return {
 		},
 	},
 	opts = {
+		formatters = {
+			["clang-format"] = {
+				prepend_args = { "--style={BasedOnStyle: LLVM, IndentWidth: 4}" },
+			},
+		},
 		notify_on_error = false,
 		format_on_save = function(bufnr)
 			local disable_filetypes = { c = true, cpp = true }

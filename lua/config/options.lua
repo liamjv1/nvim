@@ -18,5 +18,7 @@ opt.wrap = true
 opt.splitright = true
 opt.splitbelow = true
 opt.expandtab = true
-
 vim.opt.scrolloff = 12
+
+opt.spell = false -- off by default
+opt.spelllang = { "en_us" }
