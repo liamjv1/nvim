@@ -59,6 +59,7 @@ end
 
 return {
 	"lopi-py/luau-lsp.nvim",
+	enabled = false,
 	config = function()
 		-- Configure *server* settings
 		vim.lsp.config("luau-lsp", {
