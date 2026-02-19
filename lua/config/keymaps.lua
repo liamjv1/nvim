@@ -75,5 +75,3 @@ end, { desc = "Run select command" })
 map("n", "<leader>re", function()
 	require("runner").edit()
 end, { desc = "Edit runner commands" })
-
-map("n", "<leader>us", ":set spell!<CR>", { desc = "Toggle Spelling" })
